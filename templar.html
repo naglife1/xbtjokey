@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Friction Trade: Why Templar (SN3) Is the Most Asymmetric Bet in Crypto Right Now — Haris Cheema</title>
+<meta name="description" content="A decentralized network just trained a 72B-parameter AI model that beats Meta's LLaMA. Most people can't even figure out how to buy the token. That's the edge.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF7;
+    --bg-card: #F4F3EE;
+    --ink: #1A1A1A;
+    --ink-soft: #4A4A4A;
+    --ink-muted: #8B8B85;
+    --line: #E5E4DD;
+    --accent: #D84727;
+    --green: #2F8A4F;
+    --red: #C8341E;
+    --grain-opacity: 0.05;
+  }
+  html[data-theme="dark"] {
+    --bg: #0E0E10;
+    --bg-card: #18181B;
+    --ink: #F4F4F0;
+    --ink-soft: #C4C4BE;
+    --ink-muted: #7A7A74;
+    --line: #28282C;
+    --accent: #FF6B47;
+    --green: #4ADE80;
+    --red: #F87171;
+    --grain-opacity: 0.08;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Fraunces', Georgia, serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Theme toggle */
+  .theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    z-index: 200;
+    width: 52px;
+    height: 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .theme-toggle-knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--ink);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s;
+  }
+  html[data-theme="dark"] .theme-toggle-knob {
+    transform: translateX(24px);
+  }
+
+  /* Container */
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* Back link at top */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 40px 0 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: color 0.15s;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  /* Article header */
+  .article-header {
+    padding: 20px 0 48px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 48px;
+  }
+  .meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 20px;
+  }
+  h1.article-title {
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    margin-bottom: 24px;
+    color: var(--ink);
+  }
+  .article-subtitle {
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-bottom: 32px;
+  }
+  .byline {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .byline .author { color: var(--ink); font-weight: 500; }
+
+  /* Transparency note */
+  .transparency-note {
+    background: var(--bg-card);
+    border-left: 2px solid var(--accent);
+    padding: 20px 24px;
+    margin-bottom: 48px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .transparency-note strong {
+    font-style: normal;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  /* TL;DR box */
+  .tldr {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: 28px 32px;
+    margin-bottom: 56px;
+  }
+  .tldr-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .tldr p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* Section headers */
+  .section {
+    margin-bottom: 56px;
+  }
+  .section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 6px;
+    display: block;
+  }
+  h2.section-title {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin-bottom: 24px;
+    color: var(--ink);
+  }
+
+  /* Body text */
+  .section p {
+    font-size: 17px;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+  }
+  .section p strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .section a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .section a:hover {
+    border-color: var(--accent);
+  }
+
+  /* Stat row */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 32px 0;
+  }
+  .stat {
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+  }
+  .stat-value {
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Numbered insight block (for SparseLoCo / Gauntlet) */
+  .insight-block {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+  }
+  .insight-block:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .insight-num {
+    font-size: 32px;
+    font-family: 'Fraunces', Georgia, serif;
+    color: var(--accent);
+    font-weight: 500;
+    line-height: 1;
+    padding-top: 4px;
+  }
+  .insight-content {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .insight-content strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* Key insight callout */
+  .key-insight {
+    border-left: 2px solid var(--accent);
+    padding: 18px 24px;
+    margin: 32px 0;
+    background: var(--bg-card);
+  }
+  .key-insight-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .key-insight p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* Table */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 28px 0;
+    font-size: 14px;
+  }
+  .data-table th {
+    text-align: left;
+    padding: 12px 16px 12px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    border-bottom: 1px solid var(--line);
+  }
+  .data-table td {
+    padding: 14px 16px 14px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+  .data-table td:first-child {
+    font-family: 'Fraunces', Georgia, serif;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .data-table td.status-shipped { color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+
+  /* Step list (for the SN3 buying process) */
+  .step-list {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0;
+  }
+  .step-list li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    border-top: 1px solid var(--line);
+  }
+  .step-list li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .step-arrow {
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+  }
+
+  /* Catalysts list */
+  .catalyst-list {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0;
+  }
+  .catalyst-list li {
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 12px;
+    align-items: baseline;
+  }
+  .catalyst-list li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .catalyst-marker {
+    color: var(--accent);
+    font-size: 18px;
+  }
+  .catalyst-content {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .catalyst-content strong {
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 17px;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  /* Asymmetry callout - stronger version */
+  .asymmetry-box {
+    border: 1px solid var(--accent);
+    padding: 28px 32px;
+    margin: 40px 0;
+    background: var(--bg-card);
+  }
+  .asymmetry-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .asymmetry-box p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* Bottom line closer */
+  .closer {
+    margin-top: 80px;
+    padding-top: 48px;
+    border-top: 1px solid var(--line);
+  }
+  .closer h2 {
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    color: var(--ink);
+  }
+  .closer p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+  }
+  .closer p strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .closing-statement {
+    font-size: 28px;
+    font-family: 'Fraunces', Georgia, serif;
+    font-style: italic;
+    color: var(--accent);
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    line-height: 1.3;
+  }
+
+  /* Disclaimer */
+  .disclaimer {
+    margin-top: 64px;
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+
+  /* Footer */
+  footer {
+    padding: 48px 0 60px;
+    margin-top: 60px;
+    border-top: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .container { padding: 0 24px; }
+    h1.article-title { font-size: 34px; }
+    .article-subtitle { font-size: 17px; }
+    h2.section-title { font-size: 24px; }
+    .stat-row { grid-template-columns: 1fr; gap: 0; }
+    .stat { border-top: 1px solid var(--line); }
+    .stat-value { font-size: 28px; }
+    .closer h2 { font-size: 26px; }
+    .closing-statement { font-size: 22px; }
+    .data-table { font-size: 12px; }
+    .data-table th, .data-table td { padding: 10px 8px 10px 0; }
+    .insight-block { grid-template-columns: 1fr; gap: 8px; }
+    .insight-num { font-size: 24px; }
+    .theme-toggle { top: 12px; right: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+  <span class="theme-toggle-knob"></span>
+</button>
+
+<div class="container">
+
+  <a href="index.html" class="back-link">← Back to portfolio</a>
+
+  <header class="article-header">
+    <div class="meta-label">Research · Independent</div>
+    <h1 class="article-title">The Friction Trade: Why Templar (SN3) Is the Most Asymmetric Bet in Crypto Right Now</h1>
+    <p class="article-subtitle">A decentralized network just trained a 72B-parameter AI model that beats Meta's LLaMA. Most people can't even figure out how to buy the token. That's the edge.</p>
+    <div class="byline">
+      <span class="author">Haris Cheema · @xbtjokey</span>
+      <span>March 14, 2026 · 10 min read</span>
+    </div>
+  </header>
+
+  <div class="transparency-note">
+    <strong>Publication Note</strong>
+    Written March 14, 2026 as my private thesis documentation at the time of entering this trade. Published publicly in April 2026 as part of my research portfolio. All numbers, catalysts, and predictions reflect the state of my analysis at the time of writing — I have not edited the piece to account for events that happened after March 14.
+  </div>
+
+  <div class="tldr">
+    <div class="tldr-label">TL;DR</div>
+    <p>Templar (SN3) on Bittensor just completed the largest permissionless decentralized LLM training run in history — a 72B parameter model trained across 70+ nodes on commodity internet. The model beats LLaMA-2-70B on MMLU. The token trades on a DEX with extreme friction to buy. Market cap is ~$50M. The team has NeurIPS-accepted research, a full-stack AI pipeline, and upcoming catalysts. This is a friction trade: buy the complexity, sell the news.</p>
+  </div>
+
+  <section class="section">
+    <span class="section-number">01</span>
+    <h2 class="section-title">What Actually Happened</h2>
+    <p>On March 10, 2026, a team called Covenant AI announced the completion of <strong>Covenant-72B</strong> — a 72-billion parameter large language model pre-trained entirely on decentralized infrastructure.</p>
+    <p>No data center. No central company. No permission needed. Just 70+ independent participants around the world, connected over standard 500 Mb/s internet, coordinating through a blockchain protocol on Bittensor's Subnet 3.</p>
+    <p>The model was trained on approximately 1.1 trillion tokens and scored <strong>67.1 on MMLU zero-shot</strong>, beating Meta's LLaMA-2-70B (65.6) under identical test conditions. The weights are open-source on Hugging Face under Apache License. Anyone can verify it.</p>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-value">72B</div>
+        <div class="stat-label">Parameters</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">1.1T</div>
+        <div class="stat-label">Tokens</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">70+</div>
+        <div class="stat-label">Participants</div>
+      </div>
+    </div>
+
+    <p>This isn't a whitepaper promise. It's not a roadmap slide. It's a downloadable model with verifiable benchmarks that you can run yourself right now.</p>
+  </section>
+
+  <section class="section">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Why This Matters</h2>
+    <p>For years, the AI × crypto narrative has been built on potential. Decentralized compute projects raised hundreds of millions promising to challenge Big Tech's monopoly on AI training. None of them delivered a model you could actually use.</p>
+    <p>Covenant-72B changes that. It's the first credible proof that permissionless, trustless, decentralized AI training works at scale. No whitelisting. No KYC. No approval process. Anyone with GPUs could join or leave the training run freely.</p>
+    <p>The technical innovation underneath is real. Two key breakthroughs made this possible:</p>
+
+    <div class="insight-block">
+      <div class="insight-num">01</div>
+      <div class="insight-content">
+        <strong>SparseLoCo</strong> — a communication-efficient optimizer that compresses gradients by ~97% (only 1-3% of gradients communicated with 2-bit quantization), outperforming Google DeepMind's DiLoCo and Nous Research's DeMo. Accepted at the NeurIPS OPT2025 Workshop — the first Bittensor-originated research to pass peer review at a major ML conference.
+      </div>
+    </div>
+
+    <div class="insight-block">
+      <div class="insight-num">02</div>
+      <div class="insight-content">
+        <strong>Gauntlet</strong> — a blockchain-compatible reward mechanism that evaluates each participant's contribution via loss improvement scoring and OpenSkill rankings, all recorded on-chain. This is how you train a model with strangers without anyone cheating.
+      </div>
+    </div>
+
+    <p style="margin-top: 28px;">The result: 6% communication overhead across public internet. That's insanely efficient for a globally distributed training run.</p>
+  </section>
+
+  <section class="section">
+    <span class="section-number">03</span>
+    <h2 class="section-title">The Macro Tailwind</h2>
+    <p>Here's the data point that made me pay attention. According to Epoch AI, decentralized training compute has grown <strong>600,000x since 2020</strong> — roughly a 20x per year growth rate. Centralized frontier AI training compute grows at approximately 5x per year.</p>
+    <p>The gap is still massive. Templar is roughly 300x smaller than frontier data centers in effective throughput today. But the trajectory is what matters. If decentralized training continues growing 4x faster than centralized infrastructure, the gap narrows significantly within 2-3 years.</p>
+
+    <div class="key-insight">
+      <div class="key-insight-label">Key Insight</div>
+      <p>SparseLoCo's compression techniques could theoretically enable training models 8x larger than current decentralized runs. Streaming DiLoCo could add another 10x reduction in bandwidth requirements. The ceiling for what's possible is much higher than what's been demonstrated so far.</p>
+    </div>
+
+    <p>And the broader AI crypto narrative is on fire. TAO is up 64% in 7 days. Grayscale expanded its TAO Trust. The first Bittensor halving in December 2025 cut emissions in half. NVIDIA posted record Q1 2026 revenue. AI tokens are leading the entire crypto market.</p>
+  </section>
+
+  <section class="section">
+    <span class="section-number">04</span>
+    <h2 class="section-title">The Covenant AI Stack</h2>
+    <p>What most people miss is that Templar isn't a standalone project. It's one piece of a three-part decentralized AI pipeline built by the same team:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Subnet</th>
+          <th>Function</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>SN3 — Templar</td>
+          <td>Pre-training</td>
+          <td class="status-shipped">Covenant-72B shipped</td>
+        </tr>
+        <tr>
+          <td>SN39 — Basilica</td>
+          <td>Decentralized compute</td>
+          <td>Live, infrastructure layer</td>
+        </tr>
+        <tr>
+          <td>SN81 — Grail</td>
+          <td>Post-training / RL</td>
+          <td>Inference-only, RL coming</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>This is full vertical integration. Pre-training builds the base model. Basilica provides the GPU compute. Grail handles reinforcement learning to turn a base model into something useful — think the difference between GPT-4 base and ChatGPT.</p>
+    <p>No other decentralized AI project has this kind of coverage. And all three are built by the same team with proven execution — they just shipped the largest permissionless training run in history.</p>
+  </section>
+
+  <section class="section">
+    <span class="section-number">05</span>
+    <h2 class="section-title">The Friction Thesis</h2>
+    <p>Here's where the trade gets interesting.</p>
+    <p>SN3 (Templar) is a Bittensor subnet token. To buy it, you need to:</p>
+
+    <ul class="step-list">
+      <li><span class="step-arrow">→</span><span>Acquire TAO (Bittensor's native token)</span></li>
+      <li><span class="step-arrow">→</span><span>Set up a Bittensor wallet (not MetaMask, not Phantom — a whole new wallet)</span></li>
+      <li><span class="step-arrow">→</span><span>Swap TAO for SN3 on the subnet DEX</span></li>
+    </ul>
+
+    <p>This filters out 95% of potential buyers. The people hearing about Covenant-72B on Twitter aren't going to figure out this process. That friction is your edge.</p>
+    <p>The playbook is simple: <strong>buy the friction, sell the news.</strong> When the right catalyst hits — a major tech voice discussing Templar on a mainstream podcast, a Grayscale expansion, or a second training run — the flood of buyers who couldn't be bothered with the wallet setup suddenly have a reason to figure it out. That's your liquidity event.</p>
+
+    <div class="asymmetry-box">
+      <div class="asymmetry-label">The Asymmetry</div>
+      <p>SN3 market cap: ~$50M. ATH: ~$44. Current price: ~$14. TAO FDV: ~$6B. OpenAI valuation: $500B. If decentralized AI captures even a fraction of what centralized labs are valued at, the re-rating potential is enormous.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="section-number">06</span>
+    <h2 class="section-title">Competitive Positioning</h2>
+    <p>Templar isn't the only team working on decentralized training. But it's the only one that's fully permissionless and has shipped at this scale.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Model Scale</th>
+          <th>Participation</th>
+          <th>Funding</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Templar / Covenant</td>
+          <td>72B (shipped)</td>
+          <td>Permissionless</td>
+          <td>TAO emissions</td>
+        </tr>
+        <tr>
+          <td>Prime Intellect</td>
+          <td>100B+ MoE (in progress)</td>
+          <td>Whitelisted</td>
+          <td>VC-backed</td>
+        </tr>
+        <tr>
+          <td>Nous / Psyche</td>
+          <td>40B (Consilience)</td>
+          <td>Permissioned testnet</td>
+          <td>$65M raised</td>
+        </tr>
+        <tr>
+          <td>Pluralis Research</td>
+          <td>8B</td>
+          <td>Curated</td>
+          <td>VC-backed</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Nous and Prime Intellect have significantly more venture capital. But they also gate participation. Templar's permissionless design is the whole point — it's what makes the Bittensor thesis work. Anyone can contribute if they deliver value. That's the crypto ethos actually applied to AI infrastructure.</p>
+  </section>
+
+  <section class="section">
+    <span class="section-number">07</span>
+    <h2 class="section-title">Catalysts Ahead</h2>
+
+    <ul class="catalyst-list">
+      <li>
+        <span class="catalyst-marker">⚡</span>
+        <div class="catalyst-content">
+          <strong>Templar: Crusades</strong>
+          A new competition system where participants submit training code and the fastest implementation earns emissions. "Full details coming soon" per the team. This reactivates the subnet after the current burn period.
+        </div>
+      </li>
+      <li>
+        <span class="catalyst-marker">⚡</span>
+        <div class="catalyst-content">
+          <strong>Tech-elite discovery</strong>
+          This is the real unlock. Jason Calacanis has already been engaging with the Bittensor ecosystem on All-In — he interviewed a different subnet project recently, which tells me he's actively paying attention to this space. When someone in the Chamath / Jason / David Sacks tier talks about Templar specifically on All-In or a comparable venue, the entire AI × crypto conversation repositions around decentralized training, and SN3 gets repriced overnight. The catalyst isn't a CEX listing — it's institutional discovery through the voices that move mainstream AI discourse.
+        </div>
+      </li>
+      <li>
+        <span class="catalyst-marker">⚡</span>
+        <div class="catalyst-content">
+          <strong>Grayscale TAO Trust SEC approval</strong>
+          Filed December 2025, still pending. Institutional money flowing into TAO lifts all subnet tokens.
+        </div>
+      </li>
+      <li>
+        <span class="catalyst-marker">⚡</span>
+        <div class="catalyst-content">
+          <strong>Next training run</strong>
+          After 72B, the natural question is what's next. A 200B+ run would be a category-defining moment.
+        </div>
+      </li>
+      <li>
+        <span class="catalyst-marker">⚡</span>
+        <div class="catalyst-content">
+          <strong>Training-as-a-service revenue</strong>
+          100% of fees fund Covenant token buybacks, creating direct value accrual to the token.
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <span class="section-number">08</span>
+    <h2 class="section-title">The Risks</h2>
+    <p>I'm not going to pretend this is risk-free. Here's what could go wrong:</p>
+    <p>The model beats LLaMA-2-70B, which is a 2.5-year-old model. It's not competing with LLaMA-3, Qwen-72B, or anything frontier. The comparison is encouraging but needs context.</p>
+    <p>Liquidity is thin. The SN3/TAO pool has roughly $28.7M in total liquidity. Big moves in either direction happen fast, and exiting a large position cleanly isn't guaranteed.</p>
+    <p>Templar is currently in a 100% burn period with no emissions being distributed. The transition to Crusades creates uncertainty about what drives token value in the interim.</p>
+    <p>The token already ran from ~$5 to ~$21 in a month before pulling back to ~$14. You're not buying the bottom — you're buying momentum with a thesis.</p>
+    <p>And the entire Bittensor ecosystem is experimental. Subnet economics are new, untested at scale, and could break in ways nobody anticipates.</p>
+  </section>
+
+  <section class="closer">
+    <span class="section-number">09</span>
+    <h2>The Bottom Line</h2>
+    <p>Covenant-72B is the most significant technical achievement in crypto × AI to date. Not a roadmap. Not a promise. A downloadable, verifiable, benchmark-beating model trained by strangers on the internet.</p>
+    <p>The team has NeurIPS-accepted research, a full-stack AI pipeline across three subnets, and a track record of shipping. The token is friction-gated on a subnet DEX that most people can't navigate. <strong>The market cap is $50M in a world where OpenAI is worth $500B.</strong></p>
+    <p>The thesis is simple: decentralized AI training just proved it works. The market hasn't fully priced that in yet because most people literally can't buy the token. When they can — or more likely, when the right voices force the conversation — re-rating happens.</p>
+    <p class="closing-statement">Buy the friction. Sell the news.</p>
+  </section>
+
+  <div class="disclaimer">
+    Disclaimer: This is not financial advice. I hold a position in SN3. Do your own research. Crypto is volatile. You can lose everything. The views expressed here are my own analysis and conviction — not a recommendation to buy or sell.
+  </div>
+
+  <footer>
+    <div>© 2026 Haris Cheema</div>
+    <div>xbtjokey.xyz</div>
+  </footer>
+
+</div>
+
+<script>
+function toggleTheme() {
+  var current = document.documentElement.getAttribute("data-theme");
+  var next = current === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  try { localStorage.setItem("theme", next); } catch (e) {}
+}
+try {
+  var saved = localStorage.getItem("theme");
+  if (saved) document.documentElement.setAttribute("data-theme", saved);
+} catch (e) {}
+</script>
+
+</body>
+</html>

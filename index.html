@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haris Cheema — xbtjokey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF7;
+    --bg-card: #F4F3EE;
+    --ink: #1A1A1A;
+    --ink-soft: #4A4A4A;
+    --ink-muted: #8B8B85;
+    --line: #E5E4DD;
+    --accent: #D84727;
+    --green: #2F8A4F;
+    --red: #C8341E;
+    --grain-opacity: 0.05;
+  }
+  html[data-theme="dark"] {
+    --bg: #0E0E10;
+    --bg-card: #18181B;
+    --ink: #F4F4F0;
+    --ink-soft: #C4C4BE;
+    --ink-muted: #7A7A74;
+    --line: #28282C;
+    --accent: #FF6B47;
+    --green: #4ADE80;
+    --red: #F87171;
+    --grain-opacity: 0.08;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Fraunces', Georgia, serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    z-index: 200;
+    width: 52px;
+    height: 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .theme-toggle-knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--ink);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s;
+  }
+  html[data-theme="dark"] .theme-toggle-knob {
+    transform: translateX(24px);
+  }
+  .ticker {
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .ticker-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 12px 32px;
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+  }
+  .ticker-item {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    white-space: nowrap;
+    color: var(--ink-soft);
+  }
+  .ticker-item .symbol {
+    color: var(--ink);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .pulse-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+  .change-up { color: var(--green); }
+  .change-down { color: var(--red); }
+  .ticker-status {
+    margin-left: auto;
+    color: var(--ink-muted);
+    font-size: 10px;
+  }
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+  }
+  nav {
+    padding: 36px 0 28px;
+    display: flex;
+    gap: 32px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 56px;
+  }
+  nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 15px;
+    font-style: italic;
+    transition: color 0.15s;
+  }
+  nav a:hover { color: var(--accent); }
+  section {
+    margin-bottom: 88px;
+    scroll-margin-top: 80px;
+  }
+  .name-wrapper {
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .chart-bg {
+    position: absolute;
+    top: -10px;
+    left: -30px;
+    right: -30px;
+    bottom: -10px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .chart-bg svg {
+    width: 200%;
+    height: 100%;
+    display: block;
+    animation: drift 45s linear infinite;
+    color: var(--accent);
+    opacity: 0.18;
+  }
+  @keyframes drift {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  h1.name {
+    font-size: 56px;
+    font-weight: 500;
+    line-height: 1.0;
+    letter-spacing: -0.025em;
+    position: relative;
+    z-index: 1;
+  }
+  .handle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-bottom: 36px;
+  }
+  h2 {
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .about p {
+    margin-bottom: 14px;
+    color: var(--ink-soft);
+  }
+  .about p strong { color: var(--ink); font-weight: 500; }
+  .about a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .about a:hover { border-color: var(--accent); }
+  .interests {
+    margin-top: 24px;
+    font-style: italic;
+    color: var(--ink-muted);
+    font-size: 15px;
+  }
+  .interests strong {
+    font-style: normal;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    margin-right: 8px;
+  }
+  .socials {
+    margin-top: 28px;
+    display: flex;
+    gap: 20px;
+  }
+  .socials a {
+    font-size: 14px;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 1px;
+    transition: all 0.15s;
+  }
+  .socials a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .items { display: flex; flex-direction: column; }
+  .item {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: baseline;
+    text-decoration: none;
+    color: inherit;
+    transition: padding-left 0.2s ease;
+  }
+  .item:hover { padding-left: 8px; }
+  .item:hover .item-title { color: var(--accent); }
+  .item-content { min-width: 0; }
+  .item-title {
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 5px;
+    transition: color 0.15s;
+    line-height: 1.3;
+  }
+  .item-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .item-arrow {
+    color: var(--ink-muted);
+    font-size: 14px;
+  }
+  .trade-item .item-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .pnl-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+  .pnl-win { background: rgba(47, 138, 79, 0.12); color: var(--green); }
+  .pnl-loss { background: rgba(200, 52, 30, 0.12); color: var(--red); }
+  .travel-item { cursor: pointer; }
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .modal-overlay.active {
+    display: flex;
+    opacity: 1;
+  }
+  .modal {
+    background: var(--bg);
+    max-width: 720px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    border: 1px solid var(--line);
+    padding: 48px 56px 56px;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    color: var(--ink-muted);
+    cursor: pointer;
+    padding: 8px;
+  }
+  .modal-close:hover { color: var(--accent); }
+  .modal-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+  }
+  .modal-title {
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    color: var(--ink);
+  }
+  .modal-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .modal-images img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--line);
+  }
+  .placeholder {
+    aspect-ratio: 4 / 3;
+    background: var(--bg-card);
+    border: 1px dashed var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+  .modal-description {
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .modal-description p { margin-bottom: 14px; }
+  .modal-description em {
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+  footer {
+    padding: 48px 0 60px;
+    border-top: 1px solid var(--line);
+    margin-top: 60px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  @media (max-width: 600px) {
+    .container { padding: 0 24px; }
+    h1.name { font-size: 44px; }
+    nav { gap: 22px; padding-top: 28px; margin-bottom: 44px; }
+    section { margin-bottom: 64px; }
+    .item { grid-template-columns: 1fr; gap: 6px; }
+    .item-arrow { display: none; }
+    .ticker-inner { padding: 10px 24px; gap: 20px; }
+    .ticker-status { display: none; }
+    .modal { padding: 36px 28px 40px; }
+    .modal-title { font-size: 28px; }
+    .modal-images { grid-template-columns: 1fr; }
+    .theme-toggle { top: 12px; right: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+  <span class="theme-toggle-knob"></span>
+</button>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <div class="ticker-item"><span class="symbol"><span class="pulse-dot"></span>BTC</span> <span id="btc-price">—</span></div>
+    <div class="ticker-item"><span class="symbol"><span class="pulse-dot"></span>ETH</span> <span id="eth-price">—</span></div>
+    <div class="ticker-item"><span class="symbol"><span class="pulse-dot"></span>SOL</span> <span id="sol-price">—</span></div>
+    <div class="ticker-item"><span class="symbol"><span class="pulse-dot"></span>HYPE</span> <span id="hype-price">—</span></div>
+    <div class="ticker-item"><span class="symbol"><span class="pulse-dot"></span>TAO</span> <span id="tao-price">—</span></div>
+    <div class="ticker-status" id="ticker-status">Loading prices…</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <nav>
+    <a href="#home">home</a>
+    <a href="#research">research</a>
+    <a href="#trades">trades + pnl</a>
+    <a href="#travel">travel</a>
+  </nav>
+
+  <section id="home">
+    <div class="name-wrapper">
+      <div class="chart-bg" aria-hidden="true">
+        <svg viewBox="0 0 800 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="currentColor" stroke-width="1.5" fill="none">
+            <line x1="20" y1="30" x2="20" y2="80"/>
+            <line x1="50" y1="20" x2="50" y2="70"/>
+            <line x1="80" y1="40" x2="80" y2="95"/>
+            <line x1="110" y1="15" x2="110" y2="60"/>
+            <line x1="140" y1="35" x2="140" y2="85"/>
+            <line x1="170" y1="25" x2="170" y2="75"/>
+            <line x1="200" y1="45" x2="200" y2="100"/>
+            <line x1="230" y1="20" x2="230" y2="65"/>
+            <line x1="260" y1="50" x2="260" y2="105"/>
+            <line x1="290" y1="10" x2="290" y2="55"/>
+            <line x1="320" y1="30" x2="320" y2="80"/>
+            <line x1="350" y1="40" x2="350" y2="90"/>
+            <line x1="380" y1="20" x2="380" y2="70"/>
+            <line x1="410" y1="35" x2="410" y2="85"/>
+            <line x1="440" y1="25" x2="440" y2="75"/>
+            <line x1="470" y1="50" x2="470" y2="100"/>
+            <line x1="500" y1="15" x2="500" y2="65"/>
+            <line x1="530" y1="40" x2="530" y2="90"/>
+            <line x1="560" y1="30" x2="560" y2="80"/>
+            <line x1="590" y1="20" x2="590" y2="70"/>
+            <line x1="620" y1="45" x2="620" y2="95"/>
+            <line x1="650" y1="25" x2="650" y2="75"/>
+            <line x1="680" y1="35" x2="680" y2="85"/>
+            <line x1="710" y1="15" x2="710" y2="65"/>
+            <line x1="740" y1="40" x2="740" y2="90"/>
+            <line x1="770" y1="30" x2="770" y2="80"/>
+          </g>
+          <g fill="currentColor">
+            <rect x="14" y="40" width="12" height="25"/>
+            <rect x="44" y="30" width="12" height="20"/>
+            <rect x="74" y="50" width="12" height="30"/>
+            <rect x="104" y="22" width="12" height="22"/>
+            <rect x="134" y="48" width="12" height="20"/>
+            <rect x="164" y="35" width="12" height="25"/>
+            <rect x="194" y="55" width="12" height="30"/>
+            <rect x="224" y="28" width="12" height="22"/>
+            <rect x="254" y="60" width="12" height="30"/>
+            <rect x="284" y="18" width="12" height="22"/>
+            <rect x="314" y="42" width="12" height="25"/>
+            <rect x="344" y="50" width="12" height="25"/>
+            <rect x="374" y="28" width="12" height="22"/>
+            <rect x="404" y="45" width="12" height="25"/>
+            <rect x="434" y="35" width="12" height="22"/>
+            <rect x="464" y="60" width="12" height="30"/>
+            <rect x="494" y="22" width="12" height="22"/>
+            <rect x="524" y="50" width="12" height="25"/>
+            <rect x="554" y="40" width="12" height="22"/>
+            <rect x="584" y="28" width="12" height="22"/>
+            <rect x="614" y="55" width="12" height="25"/>
+            <rect x="644" y="32" width="12" height="22"/>
+            <rect x="674" y="45" width="12" height="22"/>
+            <rect x="704" y="22" width="12" height="22"/>
+            <rect x="734" y="50" width="12" height="25"/>
+            <rect x="764" y="40" width="12" height="22"/>
+          </g>
+        </svg>
+      </div>
+      <h1 class="name">Haris Cheema</h1>
+    </div>
+    <div class="handle">@xbtjokey</div>
+
+    <div class="about">
+      <p>I'm a <strong>crypto trader, researcher, and student</strong> based in Toronto.</p>
+      <p>Studying digital assets, narrative markets, and the dynamics that move on-chain capital.</p>
+      <p>Currently a third-year Commerce student at <a href="https://www.torontomu.ca/" target="_blank">Toronto Metropolitan University</a> (Ted Rogers School of Management).</p>
+      <p>Active across <strong>Bitcoin, Ethereum, Solana, and Bittensor</strong>. Most of my work centers on identifying asymmetric opportunities through fundamental research and on-chain signal analysis.</p>
+
+      <div class="interests"><strong>interests</strong>market psychology · philosophy · on-chain research · fitness</div>
+
+      <div class="socials">
+        <a href="https://x.com/xbtjokey" target="_blank">Twitter</a>
+        <a href="#" target="_blank">LinkedIn</a>
+        <a href="mailto:your.email@email.com">Email</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <h2>Research</h2>
+    <div class="items">
+      <a href="templar.html" class="item">
+        <div class="item-content">
+          <div class="item-title">Bittensor's DeepSeek Moment — Subnet 3 (Templar)</div>
+          <div class="item-meta">Independent · March 2026</div>
+        </div>
+        <div class="item-arrow">→</div>
+      </a>
+    </div>
+  </section>
+
+  <section id="trades">
+    <h2>Trades + PnL</h2>
+    <div class="items">
+      <a href="#" class="item trade-item">
+        <div class="item-content">
+          <div class="item-title">$TRUMP <span class="pnl-tag pnl-win">+1,100%</span></div>
+          <div class="item-meta">Narrative-driven entry · Biggest multi-bagger</div>
+        </div>
+        <div class="item-arrow">→</div>
+      </a>
+      <a href="#" class="item trade-item">
+        <div class="item-content">
+          <div class="item-title">$ASTER <span class="pnl-tag pnl-win">+553%</span></div>
+          <div class="item-meta">Conviction play · Asymmetric upside</div>
+        </div>
+        <div class="item-arrow">→</div>
+      </a>
+      <a href="#" class="item trade-item">
+        <div class="item-content">
+          <div class="item-title">$SURGE <span class="pnl-tag pnl-loss">−70%</span></div>
+          <div class="item-meta">Loss case study · Lessons in execution</div>
+        </div>
+        <div class="item-arrow">→</div>
+      </a>
+      <a href="#" class="item trade-item">
+        <div class="item-content">
+          <div class="item-title">View Full Trade Case Studies (PDF)</div>
+          <div class="item-meta">Complete portfolio with screenshots</div>
+        </div>
+        <div class="item-arrow">↓</div>
+      </a>
+    </div>
+  </section>
+
+  <section id="travel">
+    <h2>Travel</h2>
+    <div class="items">
+      <div class="item travel-item" onclick="openTravelModal('mecca')">
+        <div class="item-content">
+          <div class="item-title">Mecca, Saudi Arabia</div>
+          <div class="item-meta">Umrah · Early 2026</div>
+        </div>
+        <div class="item-arrow">→</div>
+      </div>
+      <div class="item travel-item" onclick="openTravelModal('japan')">
+        <div class="item-content">
+          <div class="item-title">Japan</div>
+          <div class="item-meta">Summer 2025</div>
+        </div>
+        <div class="item-arrow">→</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>© 2026 Haris Cheema</div>
+    <div>xbtjokey.xyz</div>
+  </footer>
+
+</div>
+
+<div class="modal-overlay" id="travel-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeTravelModal()">✕</button>
+    <div class="modal-meta" id="modal-meta"></div>
+    <h3 class="modal-title" id="modal-title"></h3>
+    <div class="modal-images" id="modal-images"></div>
+    <div class="modal-description" id="modal-description"></div>
+  </div>
+</div>
+
+<script>
+function toggleTheme() {
+  var current = document.documentElement.getAttribute("data-theme");
+  var next = current === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  try { localStorage.setItem("theme", next); } catch (e) {}
+}
+try {
+  var saved = localStorage.getItem("theme");
+  if (saved) document.documentElement.setAttribute("data-theme", saved);
+} catch (e) {}
+
+var travelData = {
+  mecca: {
+    meta: "Umrah · Early 2026",
+    title: "Mecca, Saudi Arabia",
+    images: [],
+    description: "<p><em>Add your description here. Talk about what the trip meant to you.</em></p>"
+  },
+  japan: {
+    meta: "Summer 2025",
+    title: "Japan",
+    images: [],
+    description: "<p><em>Add your description here. Cities visited, favorite moments.</em></p>"
+  }
+};
+function openTravelModal(key) {
+  var data = travelData[key];
+  if (!data) return;
+  document.getElementById("modal-meta").textContent = data.meta;
+  document.getElementById("modal-title").textContent = data.title;
+  document.getElementById("modal-description").innerHTML = data.description;
+  var imgContainer = document.getElementById("modal-images");
+  imgContainer.innerHTML = "";
+  if (data.images.length === 0) {
+    imgContainer.innerHTML = '<div class="placeholder">Add image</div><div class="placeholder">Add image</div>';
+  } else {
+    data.images.forEach(function(src) {
+      var img = document.createElement("img");
+      img.src = "images/" + src;
+      img.alt = data.title;
+      imgContainer.appendChild(img);
+    });
+  }
+  document.getElementById("travel-modal").classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+function closeTravelModal() {
+  document.getElementById("travel-modal").classList.remove("active");
+  document.body.style.overflow = "";
+}
+document.getElementById("travel-modal").addEventListener("click", function(e) {
+  if (e.target.id === "travel-modal") closeTravelModal();
+});
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") closeTravelModal();
+});
+
+var COIN_IDS = "bitcoin,ethereum,solana,hyperliquid,bittensor";
+var COIN_MAP = {
+  "bitcoin": "btc-price",
+  "ethereum": "eth-price",
+  "solana": "sol-price",
+  "hyperliquid": "hype-price",
+  "bittensor": "tao-price"
+};
+
+function fetchPrices(attempt) {
+  attempt = attempt || 1;
+  var url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=" + COIN_IDS + "&price_change_percentage=24h";
+
+  fetch(url, { headers: { "Accept": "application/json" } })
+    .then(function(r) {
+      if (!r.ok) {
+        throw new Error("HTTP " + r.status);
+      }
+      return r.json();
+    })
+    .then(function(data) {
+      if (!Array.isArray(data)) {
+        throw new Error("Unexpected response shape");
+      }
+      data.forEach(function(coin) {
+        var id = COIN_MAP[coin.id];
+        if (!id) return;
+        var el = document.getElementById(id);
+        if (!el) return;
+        var price = coin.current_price;
+        var change = coin.price_change_percentage_24h;
+        if (price == null) return;
+        var formatted;
+        if (price >= 1000) {
+          formatted = "$" + price.toLocaleString("en-US", { maximumFractionDigits: 0 });
+        } else if (price >= 1) {
+          formatted = "$" + price.toFixed(2);
+        } else {
+          formatted = "$" + price.toFixed(4);
+        }
+        var changeHtml = "";
+        if (change != null) {
+          var cls = change >= 0 ? "change-up" : "change-down";
+          var arrow = change >= 0 ? "▲" : "▼";
+          changeHtml = ' <span class="' + cls + '">' + arrow + Math.abs(change).toFixed(1) + "%</span>";
+        }
+        el.innerHTML = formatted + changeHtml;
+      });
+      var now = new Date();
+      var time = now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false });
+      var statusEl = document.getElementById("ticker-status");
+      if (statusEl) statusEl.textContent = "Updated " + time;
+    })
+    .catch(function(err) {
+      console.warn("Price fetch failed (attempt " + attempt + "):", err);
+      if (attempt < 2) {
+        setTimeout(function() { fetchPrices(attempt + 1); }, 5000);
+      } else {
+        var statusEl = document.getElementById("ticker-status");
+        if (statusEl) statusEl.textContent = "Prices unavailable";
+      }
+    });
+}
+
+fetchPrices();
+setInterval(function() { fetchPrices(); }, 90000);
+</script>
+
+</body>
+</html>
