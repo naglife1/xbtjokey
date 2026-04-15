@@ -173,6 +173,105 @@
     font-weight: 500;
   }
 
+  /* Post-publication update block */
+  .update-block {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    padding: 32px 36px;
+    margin-bottom: 48px;
+  }
+  .update-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .update-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    margin-bottom: 24px;
+  }
+  .update-block h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 20px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .update-block h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin-top: 28px;
+    margin-bottom: 12px;
+  }
+  .update-block p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  .update-block p:last-child {
+    margin-bottom: 0;
+  }
+  .update-block blockquote {
+    border-left: 2px solid var(--line);
+    padding: 4px 0 4px 20px;
+    margin: 18px 0;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .update-block .result-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: 12px 16px;
+    margin: 18px 0;
+    font-style: normal;
+  }
+  .update-block .result-line .pnl {
+    color: var(--green);
+    font-weight: 500;
+  }
+  .update-block strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .update-block ul {
+    list-style: none;
+    padding: 0;
+    margin: 14px 0 18px 0;
+  }
+  .update-block ul li {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .update-block ul li::before {
+    content: "›";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
   /* TL;DR box */
   .tldr {
     background: var(--bg-card);
@@ -531,9 +630,42 @@
     </div>
   </header>
 
+  <div class="update-block">
+    <div class="update-label">Post-Publication Update</div>
+    <div class="update-date">Added April 15, 2026</div>
+
+    <h3>What happened after this thesis was written</h3>
+
+    <p>This piece was written on March 14, 2026 as my private documentation for the Templar trade. I'm leaving the original thesis below completely untouched. What follows is a record of what actually played out, written a month later with the benefit of hindsight.</p>
+
+    <h4>The catalyst fired, five days after publication</h4>
+
+    <p>On March 19, 2026, Chamath Palihapitiya brought up Templar and Bittensor Subnet 3 on the All-In podcast with Nvidia CEO Jensen Huang in the room. The timestamp is right around the 31 minute mark. Chamath walked through the exact setup I'd described: a decentralized network that had just pre-trained a competitive LLM on consumer hardware, positioned against the centralized compute thesis Jensen has spent years building Nvidia around.</p>
+
+    <p>This was the institutional discovery moment the thesis was built on. Not a CEX listing. A tech-elite voice in a room that moves the AI conversation, talking about the project in front of the most important person in AI hardware. Exactly the catalyst I described in Section 07.</p>
+
+    <p>The token ran from the ~$14 level at the time of writing to a peak of roughly $36 in the days following the podcast. The friction thesis worked. The marginal buyers who couldn't navigate the Bittensor wallet setup suddenly had a reason to figure it out, and the re-rating happened.</p>
+
+    <h4>And then the project collapsed</h4>
+
+    <p>On April 9, 2026, Covenant AI announced they were leaving the Bittensor network. Their public statement alleged that Jacob Steeves, also known as Const, the founder of Bittensor, had used centralized control over the network to punish them for operating too independently. Their account of what happened:</p>
+
+    <blockquote>"When a single actor can suspend a subnet's emissions, override an owner's authority over their own community spaces, publicly deprecate projects without process, and use token sales as a coercive mechanism to compel compliance, that is not decentralization. It is centralized control with decentralized branding."</blockquote>
+
+    <p>According to Covenant, Const suspended their emissions, removed their moderation over their own community channels, shut down their subnet on his own without process, and executed large timed token sales during the conflict. The team exited Bittensor with their research, their model, and their team intact, stating they would continue building decentralized AI training on different infrastructure.</p>
+
+    <p>The SN3 token was effectively dead as an investment from that point on, regardless of whether Covenant relaunches elsewhere.</p>
+
+    <h4>The takeaway</h4>
+
+    <p>The thesis was right as a trade. It was incomplete as an investment. The thing I missed wasn't the team or the tech. It was the governance of Bittensor itself, who actually controls the network, how much power they have to change a subnet's economics on their own, and whether the governance setup is real or just cover for one person. A subnet token is a bet on two things at once: the subnet team, and the chain's leadership continuing to play fair with them. I treated it as one bet. The Covenant exit made it clear those are two separate questions.</p>
+
+    <p>A trade thesis and a venture thesis answer different things. A trade asks: will the narrative fire before I get out? A venture investment asks: will the team, product, and the chain underneath it all survive long enough for this to compound? Templar was the first time I saw that gap clearly. The catalyst played out almost exactly as I mapped, and then the asset died for reasons outside any diligence I'd done on the project itself. That's why I'm leaving this piece up in full rather than taking it down. The thesis worked. The case study is what comes after.</p>
+  </div>
+
   <div class="transparency-note">
     <strong>Publication Note</strong>
-    Written March 14, 2026 as my private thesis documentation at the time of entering this trade. Published publicly in April 2026 as part of my research portfolio. All numbers, catalysts, and predictions reflect the state of my analysis at the time of writing — I have not edited the piece to account for events that happened after March 14.
+    Written March 14, 2026 as my private thesis documentation at the time of entering this trade. Published publicly in April 2026 with the post-publication update above. Everything below this note reflects my analysis as of March 14 — I have not edited the original piece to account for events that happened after the original writing date.
   </div>
 
   <div class="tldr">
@@ -756,7 +888,6 @@
     <p>The model beats LLaMA-2-70B, which is a 2.5-year-old model. It's not competing with LLaMA-3, Qwen-72B, or anything frontier. The comparison is encouraging but needs context.</p>
     <p>Liquidity is thin. The SN3/TAO pool has roughly $28.7M in total liquidity. Big moves in either direction happen fast, and exiting a large position cleanly isn't guaranteed.</p>
     <p>Templar is currently in a 100% burn period with no emissions being distributed. The transition to Crusades creates uncertainty about what drives token value in the interim.</p>
-    <p>The token already ran from ~$5 to ~$21 in a month before pulling back to ~$14. You're not buying the bottom — you're buying momentum with a thesis.</p>
     <p>And the entire Bittensor ecosystem is experimental. Subnet economics are new, untested at scale, and could break in ways nobody anticipates.</p>
   </section>
 
